@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Bloodgroup Prediction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Project styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-700 text-white p-4 shadow-lg">
+        <div class="w-full flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold tracking-wide" style="color: #00FFFF;">BloodGroup App</h1>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none" onclick="toggleMenu()">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            <!-- Desktop Menu -->
+            <div id="nav-menu" class="hidden md:flex space-x-2 lg:space-x-4">
+                <a href="{{ url_for('home') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Home</a>
+                {% if 'username' in session %}
+                <a href="{{ url_for('working') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Working</a>
+                <a href="{{ url_for('fundus_upload') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Prediction</a>
+                <a href="{{ url_for('analysis') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Accuracy</a>
+                <a href="{{ url_for('chart') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Analysis</a>
+                <a href="{{ url_for('train_model') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Training</a>
+                <a href="{{ url_for('logout') }}" class="block px-3 py-2 rounded-md bg-red-500 hover:bg-red-600 transition">Logout</a>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Login</a>
+                <a href="{{ url_for('register') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Register</a>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2">
+            <div class="flex flex-col space-y-2">
+                <a href="{{ url_for('home') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Home</a>
+                {% if 'username' in session %}
+                <a href="{{ url_for('working') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Working</a>
+                <a href="{{ url_for('fundus_upload') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Prediction</a>
+                <a href="{{ url_for('analysis') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Accuracy</a>
+                <a href="{{ url_for('chart') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Analysis</a>
+                <a href="{{ url_for('train_model') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Training</a>
+                <a href="{{ url_for('logout') }}" class="block px-3 py-2 rounded-md bg-red-500 hover:bg-red-600 transition">Logout</a>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Login</a>
+                <a href="{{ url_for('register') }}" class="block px-3 py-2 rounded-md hover:bg-pink-700/70 transition">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            mobileMenu.classList.toggle('hidden');
+            
+            // Toggle between hamburger and close icon
+            if (mobileMenu.classList.contains('hidden')) {
+                menuBtn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+            } else {
+                menuBtn.innerHTML = '<i class="fas fa-times text-2xl"></i>';
+            }
+        }
+    </script>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full p-0 m-0">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-red-800 via-pink-700 to-red-600 text-white p-4 text-center mt-auto">
+        <p>&copy; 2025 BloodGroup Prediction System</p>
+    </footer>
+
+</body>
+</html>

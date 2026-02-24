@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - DATABASE=database.db
+    volumes:
+      - ./uploads:/app/uploads
+      - ./static:/app/static
+    restart: unless-stopped
+    
+  # Optional: Redis for caching (can be enabled later)
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379:6379"
