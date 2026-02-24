@@ -9,6 +9,11 @@
   "deploy": {
     "numReplicas": 1,
     "restart": "ON_FAILURE",
-    "restartPolicyMaxRetries": 10
+    "restartPolicyMaxRetries": 10,
+    "web": {
+      "command": "python app.py",
+      "healthcheckPath": "/",
+      "healthcheckTimeout": 60
+    }
   }
 }
