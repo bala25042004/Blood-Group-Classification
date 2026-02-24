@@ -11,7 +11,7 @@
     "restart": "ON_FAILURE",
     "restartPolicyMaxRetries": 10,
     "web": {
-      "command": "python app.py",
+      "command": "gunicorn --bind 0.0.0.0:$PORT app:app",
       "healthcheckPath": "/",
       "healthcheckTimeout": 60
     }
