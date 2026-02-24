@@ -317,6 +317,13 @@ if __name__ == '__main__':
     os.makedirs(os.path.join('static', 'uploads'), exist_ok=True)
     
     # Get port from environment (Railway provides $PORT)
-    port = int(os.environ.get('PORT', 5000))
+    port_env = os.environ.get('PORT')
+    if port_env and port_env != '$PORT':
+        try:
+            port = int(port_env)
+        except (ValueError, TypeError):
+            port = 5000
+    else:
+        port = 5000
     
     app.run(debug=False, use_reloader=False, host='0.0.0.0', port=port)
